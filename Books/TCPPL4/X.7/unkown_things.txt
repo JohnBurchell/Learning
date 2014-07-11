@@ -1,0 +1,54 @@
+1) - there are different types of implementations of C++, free standing and hosted, the latter containing less functionality than the former.
+2) - see code.
+3) - While looking this up, i found a good list on SO that covers a lot of good ones!
+http://stackoverflow.com/questions/367633/what-are-all-the-common-undefined-behaviours-that-a-c-programmer-should-know-a
+
+Undefined is behaviour that is possibly dangerous and unintended,
+Dereference a null pointer
+Using an automatic variable before it's assigned
+Overflowing signed integers
+Dereference beyond the end of an array, maybe deref'n when at container.end()?
+Shifting values by a number that is greater than or equal to the amount of bits, i.e. int64 << 72
+
+## Undefined behaviour - Behaviour that cannot be determined or is not known
+
+aPointer = null;
+*aPointer;
+
+//Undefined according to the standard
+int test = i++;
+
+signed int massive = 1231241243213123;
+
+int test = 1234;
+test << -4;
+
+char c[4];
+c[5] = 'q';
+
+## Implementation defined - Mostly down to hardware differences that the softare is run on.
+
+char c;
+c = 255;
+int i = c; //I is either -1 if unsigned chars are used, or 255 if not.
+
+4 other things similar to this, which are hardware specific.
+
+i.e. 
+int over = 50000 //Will compile on most systems, but if it's 16 bit what will it be?
+
+
+4) -  
+
+any system() calls
+any windows specific libraries
+unix specific:
+fork();
+execv(...);
+forward and backslashes in file locations 
+unix - ("something/somewhere")
+windows ("somethingelse\somewhereelse")
+including windows.h
+including unistd.h 
+
+5) 

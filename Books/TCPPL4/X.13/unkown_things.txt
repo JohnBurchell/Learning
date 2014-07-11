@@ -1,0 +1,1 @@
+static variables keep their changes during loop iterations, this is pretty awesome!

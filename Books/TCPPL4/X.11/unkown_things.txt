@@ -1,0 +1,3 @@
+Recursive decent - An interesting syntax style
+constexpr - evaluate at compile time - No side effects, cannot use values that are not known at compile time
+	Requires integral, floating or enum value.

@@ -1,0 +1,48 @@
+RAII
+Avoid naked new and deletes
+method() const; --> does not alter anything about the parent object
+virtual defers implementation until later on, using =0 makes it "pure virtual"
+MUST be defined later on. becomes abstract
+They also have virtual destructors, this is because if something destroys the container
+they cannot possibly know of what resources the container had, as it's abstracted away from them
+
+Abstract classes are very powerful, you can create some great generic code with the. the only flipside
+is that they require pointers and references to use them
+
+There is such a thing called the virtual function table (vtbl) which stores pointers to virtual functions
+
+unique_ptr - I think this implicitly destroys everything when it goes out of scope kinda useful!
+
+&& implies move rather than copy, && means rvalue reference, compliments lvalue
+
+Move is applied when right hand side is used as an initialiser or right hand side
+
+Resource management is quite complex, but seems to be worth the time to learn, as with supression operators.
+
+Templates are compile time only, they don't incur overhead 
+
+functors and policy objects remind me of things i've seen in functional languages, they seem interesting
+to learn about
+
+[&] is a capture list, used in lambdas, they have different meanings, for example & captures all references by name
+[] captures nothing
+
+Variadic templates, ... take a varied number of arguments 
+
+
+
+
+Examples of built-in types:
+Double
+Int
+Bool
+Float
+Char
+
+Examples of non-built-in types
+Vector
+String
+Complex
+Array
+Thread
+-Anything abstract

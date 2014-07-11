@@ -1,0 +1,13 @@
+Interesting things:
+STL provides a lot of support for many things, too many to list here and i get the feeling that there are many more than listed in this chapter.
+
+there is a future header, didn't know this!
+
+containers know nothing about the algorithms which use them, they just supply the iterators which work upon them.
+
+Lots of interesting new things in the end of this chapter, especially regarding containers, iterators and streams. I need to read this again some time.
+
+
+2) Vector<T>, unordered_map<K, V>, List<T>, Map<K, V>, Set<T>
+3) sort(), find(), count(), find_if(), copy()
+4) <iostream>, <string>, <vector>, <future>, <memory>, <list>, <map>

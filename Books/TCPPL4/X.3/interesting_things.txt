@@ -1,0 +1,8 @@
+Auto - Pretty cool, knew about it before but hadn't tried to use it. Refactored a few things in tetris to try it out.
+For range loop, used this with auto, interesting...
+Standard init - {}, nice and simple
+A double is 8 bytes.
+constexpr - Constant expression, done at compile time.
+Vector is not just a container type! 
+Invariants are interesting, i've covered them a little in the computer paradigms course too.
+--- Currently at page 49

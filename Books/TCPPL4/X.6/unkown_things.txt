@@ -1,0 +1,27 @@
+Interesting things.
+
+Unique pointers are pretty cool. Should look into using these whenever i need a unqiueu resource.
+They prevent me from being bad and forgetting or not freeing memory allocated (free store and heap etc)
+
+Shared pointers are copied, and not moved like unique_ptr
+Different uses for pointers on page 114
+
+Concurrency has existed in c++ for over 20 years!
+
+join() acts like a signal to a semaphore? It waits for the thread to terminate.
+mutex works very much like a semaphore, lock unlock etc
+
+future and promise sound a little odd, might have to read some about how they work.
+
+Never use async for shared resources.
+
+High res clock and duration casts are a good way to time stuff
+
+Tag dispatch, pretty cool and a bit tricky, might implement one of these ideas some time to learn it properly
+C++ has tuples and pairs!
+
+Regex looks crazy at first,  but the syntax seems to make sense, about time i learned it really.
+
+Intersting math libraries, cool rand distribution implementation too!
+
+Limits library holds built in type limits, like double etc

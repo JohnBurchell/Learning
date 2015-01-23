@@ -1,0 +1,11 @@
+#Ignore Executables
+*.exe
+*.out
+
+#Ignore objects
+*.o
+
+#Ignore Build related things
+*.cmake
+CMakeFiles/
+CMakeCache.txt

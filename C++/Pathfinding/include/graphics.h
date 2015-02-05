@@ -37,11 +37,11 @@ class Graphics
 		void clear();
 
 	private:
-		SDL_Window* window;
-		SDL_Renderer* renderer;
+		SDL_Window* m_window;
+		SDL_Renderer* m_renderer;
 
 		//Unordered map used as I don't care about order, but only want the associativity given by a map structure.
-		std::unordered_map<std::string, SDL_Texture*> loadedImages;
+		std::unordered_map<std::string, SDL_Texture*> loaded_images;
 };
 
 #endif //GRAPHICS_H_

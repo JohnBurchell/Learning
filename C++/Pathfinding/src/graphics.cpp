@@ -3,17 +3,17 @@
 
 Graphics::Graphics() :
 
-	window{ SDL_CreateWindow("Pathfinder - Visualiser", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
+	m_window{ SDL_CreateWindow("Pathfinder - Visualiser", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
 							 800, 640, SDL_WINDOW_SHOWN) },
-	renderer{ SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED) }
+	m_renderer{ SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED) }
 
 {
-	if (window == NULL){
+	if (m_window == NULL){
 		std::cout << "Error creating window! " << SDL_GetError() << std::endl;
 		throw Window_Error();
 	}
 
-	if (renderer == NULL){
+	if (m_renderer == NULL){
 		std::cout << "Error creating renderer! " << SDL_GetError() << std::endl;
 		throw Renderer_Error();
 	}
@@ -23,7 +23,7 @@ Graphics::Graphics() :
 
 SDL_Texture* Graphics::loadImage(const std::string& fileName, bool black_is_transparent)
 {
-	if (loadedImages.count(fileName) == 0)	{
+	if (loaded_images.count(fileName) == 0)	{
 		SDL_Texture* texture;
 		SDL_Surface* surface = SDL_LoadBMP(fileName.c_str());
 
@@ -36,7 +36,7 @@ SDL_Texture* Graphics::loadImage(const std::string& fileName, bool black_is_tran
 			auto error = "Error creating surface for " + fileName + "!" + SDL_GetError();
 			throw Surface_Error();
 		}
-		texture = SDL_CreateTextureFromSurface(renderer, surface);
+		texture = SDL_CreateTextureFromSurface(m_renderer, surface);
 
 		if (texture == nullptr) {
 			auto error = "Cannot load texture " + fileName + "!" + SDL_GetError();
@@ -44,61 +44,61 @@ SDL_Texture* Graphics::loadImage(const std::string& fileName, bool black_is_tran
 		}
 
 		SDL_FreeSurface(surface);
-		loadedImages[fileName] = texture;
+		loaded_images[fileName] = texture;
 	}
 
-	return loadedImages[fileName];
+	return loaded_images[fileName];
 }
 
 void Graphics::renderTexture(SDL_Texture* texture, const int x, const int y, const SDL_Rect* clip) const
 {
-	SDL_Rect destRectangle;
-	destRectangle.x = x;
-	destRectangle.y = y;
+	SDL_Rect desitantion_rectangle;
+	desitantion_rectangle.x = x;
+	desitantion_rectangle.y = y;
 
 	if (clip != nullptr) {
-		destRectangle.w = clip->w;
-		destRectangle.h = clip->h;
+		desitantion_rectangle.w = clip->w;
+		desitantion_rectangle.h = clip->h;
 	}
 	else {
-		SDL_QueryTexture(texture, nullptr, nullptr, &destRectangle.w, &destRectangle.h);
+		SDL_QueryTexture(texture, nullptr, nullptr, &desitantion_rectangle.w, &desitantion_rectangle.h);
 	}
 
-	renderTexture(texture, destRectangle, clip);
+	renderTexture(texture, desitantion_rectangle, clip);
 }
 
 void Graphics::renderTexture(SDL_Texture* texture, const SDL_Rect destination, const SDL_Rect *clip) const
 {
-	SDL_RenderCopy(renderer, texture, clip, &destination);
+	SDL_RenderCopy(m_renderer, texture, clip, &destination);
 }
 
 void Graphics::flip()
 {
-	SDL_RenderPresent(renderer);
+	SDL_RenderPresent(m_renderer);
 }
 
 void Graphics::clear()
 {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderClear(renderer);
+	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+	SDL_RenderClear(m_renderer);
 }
 
 Graphics::~Graphics()
 {
-	for(auto x : loadedImages)
+	for(auto x : loaded_images)
 	{
 		SDL_DestroyTexture(x.second);
 	}
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(m_renderer);
+	SDL_DestroyWindow(m_window);
 }
 
 
 void Graphics::renderLine(int originX, int originY, int targetX, int targetY)
 {
-	SDL_SetRenderDrawColor(renderer, 200, 200, 110, 32);
+	SDL_SetRenderDrawColor(m_renderer, 200, 200, 110, 32);
 
-	SDL_RenderDrawLine(renderer, originX + 16, originY + 16, targetX + 16, targetY + 16);
+	SDL_RenderDrawLine(m_renderer, originX + 16, originY + 16, targetX + 16, targetY + 16);
 }
 //Remove later
 void Graphics::render_rectanlge(const int pos_x, const int pos_y, const int colour, const int width, const int height)
@@ -141,6 +141,6 @@ void Graphics::render_rectanlge(const int pos_x, const int pos_y, const int colo
 		break;
 	}
 	SDL_Rect rect = { pos_x, pos_y, width, height };
-	SDL_SetRenderDrawColor(renderer, col.r, col.g, col.b, col.a);
-	SDL_RenderFillRect(renderer, &rect);
+	SDL_SetRenderDrawColor(m_renderer, col.r, col.g, col.b, col.a);
+	SDL_RenderFillRect(m_renderer, &rect);
 }

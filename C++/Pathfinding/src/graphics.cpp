@@ -85,6 +85,10 @@ void Graphics::clear()
 
 Graphics::~Graphics()
 {
+	for(auto x : loadedImages)
+	{
+		SDL_DestroyTexture(x.second);
+	}
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 }

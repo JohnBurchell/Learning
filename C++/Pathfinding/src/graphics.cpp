@@ -94,11 +94,11 @@ Graphics::~Graphics()
 }
 
 
-void Graphics::renderLine(int originX, int originY, int targetX, int targetY)
+void Graphics::renderLine(int origin_x, int origin_y, int target_x, int target_y)
 {
 	SDL_SetRenderDrawColor(m_renderer, 200, 200, 110, 32);
 
-	SDL_RenderDrawLine(m_renderer, originX + 16, originY + 16, targetX + 16, targetY + 16);
+	SDL_RenderDrawLine(m_renderer, origin_x + 16, origin_y + 16, target_x + 16, target_y + 16);
 }
 //Remove later
 void Graphics::render_rectanlge(const int pos_x, const int pos_y, const int colour, const int width, const int height)

@@ -8,7 +8,7 @@ class Edge
 		int m_to;
 		double m_weight;
 	public:
-		Edge(int from, int to, double weight) :
+		Edge(const int from, const int to, const double weight) :
 			m_from{from},
 			m_to{to},
 			m_weight{weight} {};

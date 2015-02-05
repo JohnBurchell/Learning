@@ -20,13 +20,13 @@ class Edge
 			m_weight{10} {};
 
 		inline int from() const { return m_from; };
-		inline void setFrom(int from) { m_from = from; };
+		inline void set_from(int from) { m_from = from; };
 
 		inline int to() const {return m_to; };
-		inline void setTo(int to) { m_to = to; };
+		inline void set_to(int to) { m_to = to; };
 
 		inline int weight() const { return m_weight; };
-		inline void setWeight(int weight) { m_weight = weight; };
+		inline void set_weight(int weight) { m_weight = weight; };
 };
 
 #endif //EDGE_H_

@@ -3,8 +3,8 @@
 
 Graphics::Graphics() :
 
-	m_window{ SDL_CreateWindow("Pathfinder - Visualiser", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
-							 800, 640, SDL_WINDOW_SHOWN) },
+	m_window{ SDL_CreateWindow("Pathfinder - Visualiser",SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
+							 640, 640, SDL_WINDOW_SHOWN) },
 	m_renderer{ SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED) }
 
 {
@@ -18,7 +18,7 @@ Graphics::Graphics() :
 		throw Renderer_Error();
 	}
 
-	SDL_ShowCursor(SDL_DISABLE);
+	//SDL_ShowCursor(SDL_DISABLE);
 }
 
 SDL_Texture* Graphics::loadImage(const std::string& fileName, bool black_is_transparent)

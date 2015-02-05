@@ -14,7 +14,7 @@ class Node
 		virtual ~Node();
 
 		inline int index() const { return m_index; };
-		inline void setIndex(const int index) { m_index = index; };
+		inline void set_index(const int index) { m_index = index; };
 };
 
 class NavNode : public Node
@@ -25,7 +25,7 @@ class NavNode : public Node
 
 	public:
 		inline vector2d position() const { return m_position; };
-		inline void setVector(vector2d newPosition) { m_position = newPosition; };
+		inline void set_vector(vector2d newPosition) { m_position = newPosition; };
 };
 
 #endif //NODE_H_

@@ -4,29 +4,29 @@
 class Edge
 {
 	protected:
-		int from_;
-		int to_;
-		double weight_;
+		int m_from;
+		int m_to;
+		double m_weight;
 	public:
 		Edge(int from, int to, double weight) :
-			from_{from},
-			to_{to},
-			weight_{weight} {};
+			m_from{from},
+			m_to{to},
+			m_weight{weight} {};
 
 		Edge(int from, int to) :
-			from_{from},
-			to_{to},
+			m_from{from},
+			m_to{to},
 			//Arbitrary weight when none is given
-			weight_{10} {};
+			m_weight{10} {};
 
-		inline int from() const { return from_; };
-		inline void setFrom(int newFrom) { from_ = newFrom; };
+		inline int from() const { return m_from; };
+		inline void setFrom(int from) { m_from = from; };
 
-		inline int to() const {return to_; };
-		inline void setTo(int newTo) { to_ = newTo; };
+		inline int to() const {return m_to; };
+		inline void setTo(int to) { m_to = to; };
 
-		inline int weight() const { return weight_; };
-		inline void setWeight(int newWeight) { weight_ = newWeight; };
+		inline int weight() const { return m_weight; };
+		inline void setWeight(int weight) { m_weight = weight; };
 };
 
 #endif //EDGE_H_

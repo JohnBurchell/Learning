@@ -136,6 +136,9 @@ void Graphics::render_rectanlge(const int pos_x, const int pos_y, const int colo
 	case 8:
 		col = { 255, 255, 255, 120 };
 		break;
+	case 9:
+		col = { 100, 100, 100, 255 };
+		break;
 	default:
 		col = { 255, 255, 255, 255 };
 		break;

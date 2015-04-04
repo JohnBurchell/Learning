@@ -2,14 +2,13 @@
 #define NODE_H_
 
 #include "vector2d.h"
-#include <iostream>
 
 class Node
 {
 
 	public:
 		Node() : m_index{-1}, m_colour{0}, active{true} {};
-		Node(int i, float x, float y) : m_index{i}, m_colour{0}, m_position{x,y}, active{true} {};
+		Node(int i, float x, float y) : m_index{i}, m_colour{0}, m_position{x,y}, active{true}, previous{nullptr}, distance{0} {};
 		Node(int id) : m_index{id}, m_colour{0}, active{true} {};
 
 		inline int index() const { return m_index; };
@@ -27,6 +26,8 @@ class Node
 		int m_index;
 		int m_colour;
 		bool active;
+		Node* previous;
+		int distance;
 
 };
 

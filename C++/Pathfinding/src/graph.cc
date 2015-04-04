@@ -1,9 +1,7 @@
-#include "graphics.h"
 #include "graph.h"
 
 #include <iostream>
 #include <fstream>
-#include <string>
 #include <sstream>
 
 using std::string;
@@ -40,8 +38,15 @@ Edge& Graph::get_edge(int from, int to)
 
 int Graph::add_node(Node& node)
 {
-	m_nodes.emplace_back(node);
-	m_edges.emplace_back(Edge_List{});
+	if(m_nodes.size() > node.index())
+	{
+		m_nodes[node.index()] = node;
+	}
+	else
+	{
+		m_nodes.emplace_back(node);
+		m_edges.emplace_back(Edge_List{});
+	}
 }
 
 void Graph::remove_node(int index)
@@ -74,6 +79,21 @@ int Graph::num_edges() const
 
 }
 
+std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
+    std::stringstream ss(s);
+    std::string item;
+    while (std::getline(ss, item, delim)) {
+        elems.push_back(item);
+    }
+    return elems;
+}
+
+std::vector<std::string> split(const std::string &s, char delim) {
+    std::vector<std::string> elems;
+    split(s, delim, elems);
+    return elems;
+}
+
 void Graph::load(std::string& filename)
 {
 
@@ -100,16 +120,15 @@ void Graph::load(std::string& filename)
 
 	for(int i = 0; i < adjacency.size(); ++i)
 	{
-		std::stringstream ss;
-
 		string current = adjacency[i];
-		size_t next = 0;
-		while(next != current.size())
-		{
-			next = current.find(',');
-		}
+		std::vector<string> splits{};
+		split(current, ',', splits);
 
-		std::cout << "--" << std::endl;
+		for(auto x : splits)
+		{
+			Edge edge{i, stoi(x)};
+			m_edges[i].emplace_back(edge);
+		}
 	}
 
 	int count = 0;

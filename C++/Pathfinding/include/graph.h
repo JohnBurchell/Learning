@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <list>
+#include <string>
 
 class Graph
 {
@@ -40,13 +41,13 @@ public:
 	void save(const char* filename) const;
 
 	Node_Vector m_nodes;
+	Edge_List_Vector m_edges;
 
 	Node goal;
 	Node initial;
 	Node current_best;
 
 private:
-	Edge_List_Vector m_edges;
 	bool m_directed;
 	int m_next_node_index;
 

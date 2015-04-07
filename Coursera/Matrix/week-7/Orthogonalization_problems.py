@@ -6,6 +6,12 @@ from mat import Mat
 from vec import Vec
 from vecutil import list2vec
 from matutil import listlist2mat
+from matutil import coldict2mat, rowdict2mat, mat2coldict, mat2rowdict
+from math import sqrt
+from orthogonalization import orthogonalize
+from orthogonalization import aug_orthogonalize
+
+from triangular import triangular_solve
 
 
 
@@ -13,27 +19,34 @@ from matutil import listlist2mat
 U_vecs_1 = [list2vec([0,0,3,2])]
 W_vecs_1 = [list2vec(v) for v in [[1,2,-3,-1],[1,2,0,1],[3,1,0,-1],[-1,-2,3,1]]]
 # Give a list of Vecs
-ortho_compl_generators_1 = ...
+ortho_compl_generators_1 = [Vec({0, 1, 2, 3},{0: 1.0, 1: 2.0, 2: -0.4615384615384617, 3: 0.6923076923076923}), Vec({0, 1, 2, 3},{0: 2.2432432432432434, 1: -0.5135135135135134, 2: 0.810810810810811, 3: -1.2162162162162162})]
 
 U_vecs_2 = [list2vec([3,0,1])]
 W_vecs_2 = [list2vec(v) for v in [[1,0,0],[1,0,1]]]
 
 # Give a list of Vecs
-ortho_compl_generators_2 = ...
+ortho_compl_generators_2 = [Vec({0, 1, 2},{0: 0.10000000000000009, 1: 0.0, 2: -0.3})]
 
 U_vecs_3 = [list2vec(v) for v in [[-4,3,1,-2],[-2,2,3,-1]]]
 W_vecs_3 = [list2vec(v) for v in [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]]
 
 # Give a list of Vecs
-ortho_compl_generators_3 = ...
+ortho_compl_generators_3 = [Vec({0, 1, 2, 3},{0: 0.5333333333333332, 1: 0.10000000000000009, 2: 2.3666666666666667, 3: 0.2666666666666666}), Vec({0, 1, 2, 3},{0: 0.41899441340782123, 1: 0.3910614525139665, 2: -0.07821229050279327, 3: -0.29050279329608936}), Vec({0, 1, 2, 3},{0: -1.1102230246251565e-16, 1: 0.33333333333333315, 2: -0.06666666666666665, 3: 0.46666666666666673})]
 
 
 
 ## 2: (Problem 2) Basis for null space
 # Your solution should be a list of Vecs
-null_space_basis = ...
+null_space_basis = [Vec({0, 1, 2, 3},{0: 0.4624505928853755, 1: -0.07114624505928856, 2: -0.4031620553359684, 3: -0.2845849802371541}), Vec({0, 1, 2, 3},{0: 0.0, 1: 0.038461538461538505, 2: -0.11538461538461539, 3: 0.15384615384615388})]
 
+def normalise(vec):
+    '''Normalises a vector.
 
+    Input: A vec Vec
+    Output a normalised Vec
+
+    '''
+    return vec/sqrt(vec*vec)
 
 ## 3: (Problem 3) Orthonormalize(L)
 def orthonormalize(L):
@@ -60,7 +73,7 @@ def orthonormalize(L):
     --------------------------
      0.528 -0.653 -0.512 0.181
     '''
-    pass
+    return [normalise(x) for x in orthogonalize(L)]
 
 
 
@@ -106,8 +119,12 @@ def aug_orthonormalize(L):
      d  |  2 -5  5
     <BLANKLINE>
     '''
-    pass
-
+    Qlist, Rlist = aug_orthogonalize(L)
+    norms = [sqrt(x*x) for x in Qlist]
+    Q = [Qlist[x] / norms[x] for x in range(len(norms))]
+    ##Use the norms to scale the vectors in Rlist
+    R = [list2vec([norms[x]*t[x] for x in range(len(norms))]) for t in Rlist]
+    return Q,R
 
 
 ## 5: (Problem 5) QR factorization of small matrices
@@ -115,11 +132,11 @@ def aug_orthonormalize(L):
 
 #Please represent your solution as a list of rows, such as [[1,0,0],[0,1,0],[0,0,1]]
 
-part_1_Q = ...
-part_1_R = ...
+part_1_Q = [[0.857,0.256],[0.286,-0.958],[0.429,0.128]]
+part_1_R = [[7,6.43],[0, 1.92]]
 
-part_2_Q = ...
-part_2_R = ...
+part_2_Q = [[0.667,0.707],[0.667,-0.707],[0.333, 0]]
+part_2_R = [[3,3],[0,1.41]]
 
 
 
@@ -157,7 +174,12 @@ def QR_solve(A, b):
         >>> result.is_almost_zero()
         True
     '''
-    pass
+    Q,R = QR_factor(A)
+    keylist = sorted(R.D[1], key=repr)
+    c = Q.transpose() * b
+    res = triangular_solve(mat2rowdict(R), keylist, c)
+    return res
+    
 
 
 
@@ -169,7 +191,7 @@ least_squares_Q1 = listlist2mat([[.8,-0.099],[.6, 0.132],[0,0.986]])
 least_squares_R1 = listlist2mat([[10,2],[0,6.08]])
 least_squares_b1 = list2vec([10, 8, 6])
 
-x_hat_1 = ...
+x_hat_1 = Vec({0, 1},{0: 1.0832432432432433, 1: 0.9837837837837838})
 
 
 least_squares_A2 = listlist2mat([[3, 1], [4, 1], [5, 1]])
@@ -177,7 +199,7 @@ least_squares_Q2 = listlist2mat([[.424, .808],[.566, .115],[.707, -.577]])
 least_squares_R2 = listlist2mat([[7.07, 1.7],[0,.346]])
 least_squares_b2 = list2vec([10,13,15])
 
-x_hat_2 = ...
+x_hat_2 = Vec({0, 1},{0: 2.499999999999997, 1: 2.666666666666679})
 
 
 
@@ -186,14 +208,14 @@ x_hat_2 = ...
 
 #Please represent your solution as a list
 
-your_answer_1 = ...
-your_answer_2 = ...
+your_answer_1 = [1.08, 0.984]
+your_answer_2 = [3,1]
 
 
 
 ## 9: (Problem 9) Linear regression example
 #Find a and b for the y=ax+b line of best fit
 
-a = ...
-b = ...
+a = 0.6349650349650302
+b = 64.9283216783218
 

@@ -38,7 +38,9 @@ def fraction_wrong(A, b, w):
         >>> fraction_wrong(A, b, w)
         0.3333333333333333
     '''
-    pass
+    sig = signum(A*w)
+    diffs = sum([1 for x in b.D if b[x] != sig[x]])
+    return diffs / len(b.D)
 
 ## Task 3 ##
 def loss(A, b, w):
@@ -56,7 +58,7 @@ def loss(A, b, w):
         >>> loss(A, b, w)
         317
     '''
-    pass
+    return (A*w - b) * (A*w - b)
 
 ## Task 4 ##
 def find_grad(A, b, w):
@@ -74,7 +76,7 @@ def find_grad(A, b, w):
         >>> find_grad(A, b, w) == Vec({'B', 'A'},{'B': -290, 'A': 60})
         True
     '''
-    pass
+    return 2*((A*w) - b)*A
 
 ## Task 5 ##
 def gradient_descent_step(A, b, w, sigma):
@@ -95,7 +97,7 @@ def gradient_descent_step(A, b, w, sigma):
         >>> gradient_descent_step(A, b, w, sigma) == Vec({'B', 'A'},{'B': 27.0, 'A': -5.0})
         True
     '''
-    pass
+    return w - (sigma * find_grad(A,b,w))
 
 ## Ungraded task ##
 def gradient_descent(A, b, w, sigma, T):
@@ -108,4 +110,13 @@ def gradient_descent(A, b, w, sigma, T):
         - T: number of iterations to run
     Output: hypothesis vector obtained after T iterations of gradient descent.
     '''
-    pass
+    i = 0
+    while i < T:
+     w = gradient_descent_step(A,b,w,sigma)
+     i += 1
+     if i % 30 == 0:
+      print("Loss: ", loss(A,b,w))
+      print("Fraction Wrong: ", fraction_wrong(A,b,w))
+    print("Loss: ", loss(A,b,w))
+    print("Fraction Wrong: ", fraction_wrong(A,b,w))
+    return w   
